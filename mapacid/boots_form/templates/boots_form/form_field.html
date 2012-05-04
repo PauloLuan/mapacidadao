@@ -1,0 +1,10 @@
+<div class="control-group">
+    <label id="{{field.auto_id}}">{{ field.label }}{% if field.field.required or required %}<span class="required" title="Obrigatório"> *</span>{% endif %}</label>
+    <div class="controls">
+    
+        {{ field }} 
+    {% if field.help_text %}<p class="help-block">{{ field.help_text }}</p>{% endif %}
+    {% if field.errors %}<span class="help-block error" style="color:red; font-weight:bold;">{{ field.errors|join:", " }}</span>{% endif %}
+    </div>
+</div>
+
