@@ -27,7 +27,7 @@ Usuário : <a href="#">{{ user.username }}</a> | <a href="/logout/">logout</a>
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit" id="mapa" style=" height: 400px;">
-        mapa
+        {{ STATIC_URL }}
 
       </div>
 
@@ -70,7 +70,8 @@ Usuário : <a href="#">{{ user.username }}</a> | <a href="/logout/">logout</a>
 
 <meta property="og:type" content="website"/>
 {% block boot_js %}
-<script type="text/javascript" src="{{ STATIC_URL }}js/openlayers/OpenLayers-2.11.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}OpenLayers-2.11/OpenLayers.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/home.js"></script>
 <!-- olFramedCloudPopupContent  classe buble -->
 <script type="text/javascript" src='http://maps.google.com/maps?file=api&amp;v=2&amp;key={{ gmaps_key }}'></script>
 <script type="text/javascript">
