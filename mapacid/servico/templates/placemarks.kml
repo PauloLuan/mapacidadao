@@ -1,0 +1,13 @@
+{% extends "base.kml" %}
+
+{% block placemarks %}{% for place in places %}
+  <Placemark>
+  <id>{% if place.id %}{{ place.id }}{% endif %}</id>
+    <name>{% if place.name %}{{ place.name }}{% else %}{{ place }}{% endif %}</name>
+    <description>{% if place.description %}{{ place.description }}{% else %}{{ place }}{% endif %}</description>
+    <categoria>{% if place.categoria.id %}{{ place.categoria.id }}{% endif %}</categoria>
+    <detail_path>{% if place.categoria.id %}{{ place.categoria.id }}{% endif %}</detail_path>
+    <icon_name>{% if place.icon_name %}{{ place.icon_name }}{% endif %}</icon_name>
+    {{ place.kml|safe }}
+  </Placemark>{% endfor %}{% endblock %}
+

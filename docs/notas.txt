@@ -1,0 +1,25 @@
+site sobre roteamento no postgres
+
+http://www.pgrouting.org/
+http://georepublic.co.jp/en/technology/postgresql-postgis/
+
+
+
+
+Teste rota no Google Maps
+essa rota funcionou mais ou menos
+ESTR. DO BONSUCESSO - 
+AV. RUI BARBOSA - 
+RUA INDEPENDENCIA - 
+RUA AUDEMO VENEZIANI - 
+PONTE MINAS GERAIS - 
+PRACA BANDEIRANTES - 
+RUA CAP. ELISIARIO - 
+AV. RUI BARBOSA - 
+VIADUTO DOS EXPEDICIONARIOS - 
+RUA ANA EUFRASIA - 
+AV. SAO JOSE - 
+RUA FLAVIO B. MACHADO - 
+AV. TENENTE NEVIO BARACHO - 
+PRACA JOAO PESSOA - 
+PRACA DO EXPEDICIONARIO

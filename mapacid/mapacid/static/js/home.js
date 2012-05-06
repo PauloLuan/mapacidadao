@@ -20,22 +20,21 @@ function init_mapa() {
     mapa.addLayer(uomoLayer);   
     
     
-    var ghyb = new OpenLayers.Layer.Google("Híbrido", {
-       'sphericalMercator': true});
+    var ghyb = new OpenLayers.Layer.Google("Híbrido", {'sphericalMercator': true});
     mapa.addLayer(ghyb);
     
     
   
     var stylesMap = new OpenLayers.StyleMap({
             "default": new OpenLayers.Style({
-                pointRadius:22,
+                pointRadius:28,
                 fillColor: "#ffcc66",
                 strokeColor: "#ff9933",
                 strokeWidth: 3,
                 fillOpacity: 1,
             strokeColor: "#ff5555",
             externalGraphic: "${getExternalGraphic}",
-            graphicWidth:21, graphicHeight:22, graphicYOffset:-22
+            graphicWidth:28, graphicHeight:45, graphicYOffset:-22
             }, 
             {
        context: {
@@ -44,7 +43,7 @@ function init_mapa() {
                    return  img_base_path + "icons/cone_border.png";
                // Red if state is false
                else
-                   return  img_base_path + "/icons/" + feature.attributes.icon_name;
+                   return  "/media/" + feature.attributes.icon_name;
            }
        }    
    }
@@ -56,31 +55,31 @@ function init_mapa() {
             })
         });
 
-//   var lixo = new OpenLayers.Layer.Vector("KML", {
-//      styleMap:stylesMap,
-//       rendererOptions: {zIndexing: true},
-//       projection: mapa.displayProjection,
-//       strategies: [new OpenLayers.Strategy.Fixed()],
-//       protocol: new OpenLayers.Protocol.HTTP({
-//           url: url_markers_kml,
-//           format: new OpenLayers.Format.KML({
-//               extractStyles: false,
-//               extractAttributes: true
-//           })
-//       })
-//  });
-//    mapa.addLayer(lixo);
+   var servico = new OpenLayers.Layer.Vector("KML", {
+      styleMap:stylesMap,
+       rendererOptions: {zIndexing: true},
+       projection: mapa.displayProjection,
+       strategies: [new OpenLayers.Strategy.Fixed()],
+       protocol: new OpenLayers.Protocol.HTTP({
+           url: 'servico/kml',
+           format: new OpenLayers.Format.KML({
+               extractStyles: false,
+               extractAttributes: true
+           })
+       })
+  });
+    mapa.addLayer(servico);
     
    
-//    select = new OpenLayers.Control.SelectFeature(lixo);
-//    lixo.events.on({
-//        "featureselected": onFeatureSelect,
-//        "featureunselected": onFeatureUnselect
-//    });
+    select = new OpenLayers.Control.SelectFeature(servico);
+    servico.events.on({
+        "featureselected": onFeatureSelect,
+        "featureunselected": onFeatureUnselect
+    });
     
     
-//    mapa.addControl(select);
-//    select.activate();  
+    mapa.addControl(select);
+    select.activate();  
     
     function onPopupClose(evt) {
         select.unselectAll();
