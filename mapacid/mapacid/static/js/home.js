@@ -21,7 +21,6 @@ function init_mapa() {
     
     
     var ghyb = new OpenLayers.Layer.Google("Híbrido", {
-       type: G_HYBRID_MAP, 
        'sphericalMercator': true});
     mapa.addLayer(ghyb);
     
@@ -57,31 +56,31 @@ function init_mapa() {
             })
         });
 
-    var lixo = new OpenLayers.Layer.Vector("KML", {
-        styleMap:stylesMap,
-        rendererOptions: {zIndexing: true},
-        projection: mapa.displayProjection,
-        strategies: [new OpenLayers.Strategy.Fixed()],
-        protocol: new OpenLayers.Protocol.HTTP({
-            url: url_markers_kml,
-            format: new OpenLayers.Format.KML({
-                extractStyles: false,
-                extractAttributes: true
-            })
-        })
-    });
-    mapa.addLayer(lixo);
+//   var lixo = new OpenLayers.Layer.Vector("KML", {
+//      styleMap:stylesMap,
+//       rendererOptions: {zIndexing: true},
+//       projection: mapa.displayProjection,
+//       strategies: [new OpenLayers.Strategy.Fixed()],
+//       protocol: new OpenLayers.Protocol.HTTP({
+//           url: url_markers_kml,
+//           format: new OpenLayers.Format.KML({
+//               extractStyles: false,
+//               extractAttributes: true
+//           })
+//       })
+//  });
+//    mapa.addLayer(lixo);
     
    
-    select = new OpenLayers.Control.SelectFeature(lixo);
-    lixo.events.on({
-        "featureselected": onFeatureSelect,
-        "featureunselected": onFeatureUnselect
-    });
+//    select = new OpenLayers.Control.SelectFeature(lixo);
+//    lixo.events.on({
+//        "featureselected": onFeatureSelect,
+//        "featureunselected": onFeatureUnselect
+//    });
     
     
-    mapa.addControl(select);
-    select.activate();  
+//    mapa.addControl(select);
+//    select.activate();  
     
     function onPopupClose(evt) {
         select.unselectAll();
@@ -157,7 +156,8 @@ function init_mapa() {
 }
 
 
-var geocoder = new GClientGeocoder();
+// deprecated var geocoder = new GClientGeocoder(); 
+var geocoder = new google.maps.Geocoder();
 
 function showAddress(address) {
     var uomoStyle = { graphicWidth: 25,graphicHeight: 28,graphicYOffset:-28,graphicXOffset:-7, externalGraphic:img_base_path + "uomo_stick_25X28.png"};
