@@ -8,7 +8,7 @@ function init_mapa() {
         displayProjection: new OpenLayers.Projection("EPSG:900913"),
         units: "m",  numZoomLevels: 18, maxResolution: 156543.0339,
         maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
-        restrictedExtent: new OpenLayers.Bounds(-5179137.4061623998, -2676741.9745125002, -5037435.7930119997, -2625236.0547225)
+        //restrictedExtent: new OpenLayers.Bounds(-5179137.4061623998, -2676741.9745125002, -5037435.7930119997, -2625236.0547225)
     };              
    
     
@@ -34,7 +34,7 @@ function init_mapa() {
                 fillOpacity: 1,
             strokeColor: "#ff5555",
             externalGraphic: "${getExternalGraphic}",
-            graphicWidth:28, graphicHeight:45, graphicYOffset:-22
+            graphicWidth:32, graphicHeight:37, graphicYOffset:0
             }, 
             {
        context: {

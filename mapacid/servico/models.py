@@ -33,8 +33,8 @@ class PontoCategoria(models.Model):
 
 class Ponto(models.Model):
     
-    categoria = models.ForeignKey(PontoCategoria, default=1) 
-    titulo = models.CharField(u'título', max_length=120, blank=False, null=False)
+    categoria = models.ForeignKey(PontoCategoria, blank=True, null=True)
+    titulo = models.CharField(u'título', max_length=120, blank=True, null=True)
     descricao = models.TextField(u'descrição', blank=True, null=True)
     status =  models.ForeignKey(PontoStatus, blank=True, null=True)
     ponto = models.PointField(u'ponto', srid=900913, null=True, blank=True)
