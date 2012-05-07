@@ -7,5 +7,13 @@ from django.shortcuts import get_object_or_404, render_to_response, render
 from django.template import RequestContext
 from django.utils.safestring import mark_safe
 
+from servico.forms import PontoSearchForm
+
 def home(request):
-    return render(request, 'home.html')
+    formsrch = PontoSearchForm()
+
+    return render_to_response('home.html', 
+        {'formsrch':formsrch}, 
+       context_instance=RequestContext(request)
+       )
+    
