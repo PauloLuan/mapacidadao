@@ -95,3 +95,6 @@ class PontoSearchForm(forms.Form):
 
     categoria =  forms.ModelChoiceField(queryset=PontoCategoria.objects.all(), required=False)
     texto =  forms.CharField( u"Procurar por", required=False)
+
+    
+    
