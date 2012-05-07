@@ -1,5 +1,6 @@
 *.py[co]
 settings_local.py
+mapacid/media/*
 
 # Packages
 *.egg
