@@ -45,7 +45,9 @@ def kml(request, categoria=None, object_id=None):
 
     markers = [{'id':mrk.id,
                  'name': mrk.titulo, 
-                 'description': mrk.descricao,
+                 'description': mrk.logradouro  ,
+                 'telefone': mrk.telefone or "",
+                 'site': mrk.site or "",
                  'kml': mrk.ponto and mrk.ponto.kml or '',
                  'categoria':mrk.categoria,
                  'icon_name':mrk.categoria.icon} for mrk in markers]
@@ -62,7 +64,7 @@ def kml_detail(request, object_id=None):
 
     markers = [{'id':mrk.id,
                  'name': mrk.titulo, 
-                 'description': mrk.descricao, 
+                 'description': "--xxxx---",
                  'categoria':mrk.categoria,
                  'icon_name':mrk.categoria.icon_name} for mrk in markers]
     

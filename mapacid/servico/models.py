@@ -39,17 +39,31 @@ class Ponto(models.Model):
     status =  models.ForeignKey(PontoStatus, blank=True, null=True)
     ponto = models.PointField(u'ponto', srid=900913, null=True, blank=True)
 
+    telefone = models.CharField( max_length=50, null=True, blank=True)
+    site = models.URLField( null=True, blank=True)
+
     logradouro = models.CharField(u'logradouro', max_length=200, blank=True, null=True)
-    numero = models.CharField(u'número', max_length=10, blank=True, null=True)
+    numero = models.CharField(u'número', max_length=15, blank=True, null=True)
     complemento = models.CharField(max_length=30, blank=True, null=True)
     bairro = models.CharField(max_length=70, blank=True, null=True)
-    cep = models.CharField(u'CEP', max_length=9, blank=True, null=True)
+    cep = models.CharField(u'CEP', max_length=12, blank=True, null=True)
     #municipio = models.ForeignKey(Municipio, verbose_name=u'UF - Município', blank=True, null=True)
-    municipio = models.CharField(max_length=30, blank=True, null=True)
+    municipio = models.CharField(max_length=70, blank=True, null=True)
+
+
+    #dados do geocode json
+    route = models.CharField(u'logradouro', max_length=200, blank=True, null=True)
+    street_number = models.CharField(u'número', max_length=15, blank=True, null=True)
+    sublocality = models.CharField(max_length=70, blank=True, null=True)
+    postal_code = models.CharField(u'CEP', max_length=12, blank=True, null=True)
+    #municipio = models.ForeignKey(Municipio, verbose_name=u'UF - Município', blank=True, null=True)
+    locality = models.CharField(max_length=70, blank=True, null=True)
+    administrative_area_level_1 = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=50, blank=True, null=True)
+    formatted_address = models.CharField(max_length=250, blank=True, null=True)
 
     objects = models.GeoManager()
 
-    
 
     @models.permalink
     def get_absolute_url(self):

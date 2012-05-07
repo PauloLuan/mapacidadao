@@ -34,6 +34,7 @@ Usuário : <a href="#">{{ user.username }}</a> | <a href="/logout/">logout</a>
    <div class="span4">
       
       <fieldset class="control-group">
+         {% boots_form form.categoria %}
       {% boots_form form.arquivo %}
          <div class="form-actions">
       <button type="submit" class="btn btn-primary">Salvar Dados</button>
@@ -43,7 +44,9 @@ Usuário : <a href="#">{{ user.username }}</a> | <a href="/logout/">logout</a>
    </div>
    <div class="span4">
       <fieldset class="control-group">
-      {% boots_form form.titulo %} 
+
+      {% boots_form form.titulo %}
+
       {% boots_form form.descricao %}
       {% boots_form form.status %}
       </fieldset>

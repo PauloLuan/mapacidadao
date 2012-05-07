@@ -8,7 +8,7 @@ function init_mapa() {
         displayProjection: new OpenLayers.Projection("EPSG:900913"),
         units: "m",  numZoomLevels: 18, maxResolution: 156543.0339,
         maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34),
-        //restrictedExtent: new OpenLayers.Bounds(-5179137.4061623998, -2676741.9745125002, -5037435.7930119997, -2625236.0547225)
+        restrictedExtent: new OpenLayers.Bounds(-5179137.4061623998, -2676741.9745125002, -5037435.7930119997, -2625236.0547225)
     };              
    
     
@@ -92,12 +92,16 @@ function init_mapa() {
         // Since KML is user-generated, do naive protection against
         // Javascript.
         //$('#context-content').load('mapa/ponto/detail/'+feature.attributes.id, function(){reset_form_ajax();});
-        var content = "<h3 style=\"margin:3px;\color:#F29B20;\">"+feature.attributes.name + "</h3>";
+        var content = "<h3 style=\"margin:3px;\color:blue;\">"+feature.attributes.name + "</h3>";
         content += "<div style=\"color:#5E8247;\">";
         if(feature.attributes.thumbnail!='') {
             content += '<img src="'+feature.attributes.thumbnail+'" align="left" style="margin-right:5px; margin-bottom:5px;" />';
         }
-        content += feature.attributes.description + "</div>"+"<br/><b>Votos:</b>"+ feature.attributes.votos + "<br/><a href=\"mapa/ponto/detail/" +feature.attributes.id + "\/\"> Veja detalhes </a><br/><br/>";
+        content += feature.attributes.description + "</div>"+"<br/>"
+        //content += "<b>Votos:</b>:" + feature.attributes.votos + "<br/>"
+        content += "<b>telefone:</b>" + feature.attributes.telefone + "<br/>"
+        content += "<b>site:</b>" + feature.attributes.site + "<br/>"
+        content += " <a href=\"mapa/ponto/detail/" +feature.attributes.id + "\/\"> Veja detalhes </a><br/><br/>";
         content += '<iframe src="http://www.facebook.com/plugins/like.php?href=www.mapadocidadao.com.br/mapa/ponto/detail/'+feature.attributes.id+'/&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;font=arial&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>';
         content += '<iframe allowtransparency="true" frameborder="0" scrolling="no" src="http://platform.twitter.com/widgets/tweet_button.html?url=http%3A%2F%2Fwww.mapadocidadao.com.br%2Fmapa%2Fponto%2Fdetail%2F'+feature.attributes.id+'%2F&amp;count=horizontal&amp;counturl=http%3A%2F%2Fwww.mapadocidadao.com.br%2Fmapa%2Fponto%2Fdetail%2F'+feature.attributes.id+'%2F&amp;text=Novo Relato | Mapa do Cidadão - '+feature.attributes.name+':&amp;related=mapacidadao:Mapa do Cidadão&amp;via=mapadocidadao" style="width:100px; height:20px;"></iframe>';
         if (content.search("<script") != -1) {
@@ -132,7 +136,7 @@ function init_mapa() {
     mapa.addControl(control_point);
 
     
-    function get_ewkt (feat){wkt_f = new OpenLayers.Format.WKT();return 'SRID=900913;' + wkt_f.write(feat);}
+    function get_ewkt (feat){wkt_f = new OpenLayers.Format.WKT();return 'SRID=4326;' + wkt_f.write(feat);}
     function write_wkt(feat){document.getElementById('id_ponto').value = get_ewkt(feat);}
     function add_wkt(event){
         //alert(event.type);

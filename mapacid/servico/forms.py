@@ -51,15 +51,32 @@ class PontoFileForm(forms.ModelForm):
                 self.instance.regs +=1
                 add = l.split(';')
                 if len(add) >=5:
+                    descricao=None
+                    try:
+                        descricao = add[6]
+                    except:
+                        pass
+
                     self.instance.regs_ok.append(add)
                     json_ret  = getGeoCode( "%s - %s, %s" %(add[3],add[2], add[1]) ) 
-                    print "POINT (%s %s)" %( 
-                        json_ret['results'][0]['geometry']['location']['lat'], 
-                        json_ret['results'][0]['geometry']['location']['lng']
-                        )
-                    pt_categoria = PontoCategoria.objects.all()[0]
-                    pt = Ponto(categoria=pt_categoria, titulo =add[0] , ponto = 'POINT (%s %s)' %( json_ret['results'][0]['geometry']['location']['lng'], json_ret['results'][0]['geometry']['location']['lat']))
-                    pt.save()
+                    #print "POINT (%s %s)" %( 
+                    #    json_ret['results'][0]['geometry']['location']['lat'], 
+                    #    json_ret['results'][0]['geometry']['location']['lng']
+                    #    )
+                    if json_ret['status'] == "OK":
+                        pt_categoria = self.cleaned_data['categoria']
+                        pt = Ponto(categoria=pt_categoria, 
+                            titulo =add[0] , 
+                            ponto = 'SRID=4326;POINT (%s %s)' %( json_ret['results'][0]['geometry']['location']['lng'], json_ret['results'][0]['geometry']['location']['lat']), 
+                            descricao = descricao,
+                            logradouro = add[3],
+                            bairro = add[4],
+                            telefone = add[5],
+                            formatted_address = json_ret['results'][0]['formatted_address']
+                            )
+                        pt.save()
+                    else:
+                        print "Não retornou endereço: %s" %(add[1])
 
         
         if commit:
