@@ -39,7 +39,8 @@ KeyError: 0
 u'OK'
 >>> x['results']
 [
-{u'geometry': {u'location_type': u'RANGE_INTERPOLATED', u'bounds': {u'northeast': {u'lat': -23.2334839, u'lng': -45.88294250000001}, u'southwest': {u'lat': -23.2335011, u'lng': -45.88294370000001}}, u'viewport': {u'northeast': {u'lat': -23.2321435197085, u'lng': -45.88159411970851}, u'southwest': {u'lat': -23.2348414802915, u'lng': -45.88429208029151}}, u'location': {u'lat': -23.2334839, u'lng': -45.88294250000001}}, 
+{u'geometry': {u'location_type': u'RANGE_INTERPOLATED', u'bounds': {u'northeast': {u'lat': -23.2334839, u'lng': -45.88294250000001}, u'southwest': {u'lat': -23.2335011, u'lng': -45.88294370000001}
+}, u'viewport': {u'northeast': {u'lat': -23.2321435197085, u'lng': -45.88159411970851}, u'southwest': {u'lat': -23.2348414802915, u'lng': -45.88429208029151}}, u'location': {u'lat': -23.2334839, u'lng': -45.88294250000001}}, 
 u'address_components': [{u'long_name': u'246', u'types': [u'street_number'], u'short_name': u'246'}, {u'long_name': u'R. Martim de S\xe1', u'types': [u'route'], u'short_name': u'R. Martim de S\xe1'}, {u'long_name': u'Cj. Residencial Cidade Jardim', u'types': [u'sublocality', u'political'], u'short_name': u'Cj. Residencial Cidade Jardim'}, {u'long_name': u'S\xe3o Jos\xe9 dos Campos', u'types': [u'locality', u'political'], u'short_name': u'S\xe3o Jos\xe9 dos Campos'}, {u'long_name': u'S\xe3o Paulo', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'S\xe3o Paulo'}, {u'long_name': u'Brazil', u'types': [u'country', u'political'], u'short_name': u'BR'}, {u'long_name': u'12230-690', u'types': [u'postal_code'], u'short_name': u'12230-690'}], u'formatted_address': u'R. Martim de S\xe1, 246 - Cj. Residencial Cidade Jardim, S\xe3o Jos\xe9 dos Campos - S\xe3o Paulo, 12230-690, Brazil', u'types': [u'street_address']}]
 
 =================
