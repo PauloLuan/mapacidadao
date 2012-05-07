@@ -96,5 +96,31 @@ class PontoSearchForm(forms.Form):
     categoria =  forms.ModelChoiceField(queryset=PontoCategoria.objects.all(), required=False)
     texto =  forms.CharField( u"Procurar por", required=False)
 
+    def queryset(self):
+        print "PASSOU "
+        object_list = Ponto.objects.all()
+
+        def query_field(fieldname, query_operator='exact', modelfieldname=None):
+            if not modelfieldname:
+                modelfieldname = fieldname
+            if self.cleaned_data[fieldname]:
+                return Q(**{'%s__%s' % (modelfieldname, query_operator): self.cleaned_data[fieldname]})
+            return False
+
+        if self.is_valid():
+            q_categoria = query_field('categoria')
+            q_titulo = query_field('texto', 'icontains', 'titulo')
+            #q_descricao = ((self.cleaned_data['texto']!=None) and  Q(descricao__icontains =  self.cleaned_data['texto']) )
+            q_descricao = query_field('texto', 'icontains', 'descricao')
+
+            print object_list.filter(q_categoria and (q_titulo or q_descricao))
+            print len( object_list.filter(q_categoria and (q_titulo or q_descricao)))
+            return object_list.filter(q_categoria and (q_titulo or q_descricao))
+
+
+
+
+
+
     
     
