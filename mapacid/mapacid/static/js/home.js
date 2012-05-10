@@ -2,6 +2,8 @@ function reset_form_ajax(){
   var options = {target:$('#containers')};
   $('.ajax-comment-form').ajaxForm(options);
 }
+var url_kml  = '/servico/kml/';
+
 function init_mapa() {
     var options = {
         projection: new OpenLayers.Projection("EPSG:900913"),
@@ -24,6 +26,48 @@ function init_mapa() {
     mapa.addLayer(ghyb);
     
     
+    loadPoiLayer(mapa, url_kml);
+   
+
+    // PONTO EDICAO
+    var pointLayer = new OpenLayers.Layer.Vector("edit_point");
+    mapa.addLayer(pointLayer);
+    control_point = new OpenLayers.Control.DrawFeature(pointLayer,OpenLayers.Handler.Point);
+    feature_point = new OpenLayers.Control.SelectFeature(pointLayer);
+    mapa.addControl(feature_point);
+    //feature_point.deactivate();   
+    mapa.addControl(control_point);
+
+    
+    function get_ewkt (feat){wkt_f = new OpenLayers.Format.WKT();return 'SRID=4326;' + wkt_f.write(feat);}
+    function write_wkt(feat){document.getElementById('id_ponto').value = get_ewkt(feat);}
+    function add_wkt(event){
+        //alert(event.type);
+        if (pointLayer.features.length > 1){
+            //alert(pointLayer.features.length);
+            old_feats = [pointLayer.features[0]];
+            pointLayer.removeFeatures(old_feats);
+            pointLayer.destroyFeatures(old_feats);
+        }
+        write_wkt(event.feature);
+        mapa.setCenter(new OpenLayers.LonLat(event.feature.geometry.x, event.feature.geometry.y ),17)
+    }
+    pointLayer.events.on({"featureadded" : add_wkt});
+
+//    {% if extent %}
+//    mapa.zoomToExtent(new OpenLayers.Bounds{{ extent }});
+//    {% else %}        
+    if (!mapa.getCenter()) {mapa.zoomToMaxExtent();}
+//    {% endif %}     
+}
+
+
+// deprecated var geocoder = new GClientGeocoder(); 
+var geocoder = new google.maps.Geocoder();
+
+
+function loadPoiLayer(mapa, url_kml){
+
   
     var stylesMap = new OpenLayers.StyleMap({
             "default": new OpenLayers.Style({
@@ -55,38 +99,35 @@ function init_mapa() {
             })
         });
 
-   var servico = new OpenLayers.Layer.Vector("KML", {
+   servico = new OpenLayers.Layer.Vector("KML", {
       styleMap:stylesMap,
        rendererOptions: {zIndexing: true},
        projection: mapa.displayProjection,
        strategies: [new OpenLayers.Strategy.Fixed()],
        protocol: new OpenLayers.Protocol.HTTP({
-           url: 'servico/kml',
+           url: url_kml,
            format: new OpenLayers.Format.KML({
                extractStyles: false,
                extractAttributes: true
            })
        })
   });
-    mapa.addLayer(servico);
+  mapa.addLayer(servico);
     
-   
-    select = new OpenLayers.Control.SelectFeature(servico);
+select = new OpenLayers.Control.SelectFeature(servico);
     servico.events.on({
         "featureselected": onFeatureSelect,
         "featureunselected": onFeatureUnselect
     });
-    
-    
+
     mapa.addControl(select);
-    select.activate();  
+    select.activate(); 
+
     
     function onPopupClose(evt) {
         select.unselectAll();
     }
     
-
-
     function onFeatureSelect(event) {
         var feature = event.feature;
         // Since KML is user-generated, do naive protection against
@@ -126,41 +167,14 @@ function init_mapa() {
         }
     }
 
-    // PONTO EDICAO
-    var pointLayer = new OpenLayers.Layer.Vector("edit_point");
-    mapa.addLayer(pointLayer);
-    control_point = new OpenLayers.Control.DrawFeature(pointLayer,OpenLayers.Handler.Point);
-    feature_point = new OpenLayers.Control.SelectFeature(pointLayer);
-    mapa.addControl(feature_point);
-    //feature_point.deactivate();   
-    mapa.addControl(control_point);
-
-    
-    function get_ewkt (feat){wkt_f = new OpenLayers.Format.WKT();return 'SRID=4326;' + wkt_f.write(feat);}
-    function write_wkt(feat){document.getElementById('id_ponto').value = get_ewkt(feat);}
-    function add_wkt(event){
-        //alert(event.type);
-        if (pointLayer.features.length > 1){
-            //alert(pointLayer.features.length);
-            old_feats = [pointLayer.features[0]];
-            pointLayer.removeFeatures(old_feats);
-            pointLayer.destroyFeatures(old_feats);
-        }
-        write_wkt(event.feature);
-        mapa.setCenter(new OpenLayers.LonLat(event.feature.geometry.x, event.feature.geometry.y ),17)
-    }
-    pointLayer.events.on({"featureadded" : add_wkt});
-
-//    {% if extent %}
-//    mapa.zoomToExtent(new OpenLayers.Bounds{{ extent }});
-//    {% else %}        
-    if (!mapa.getCenter()) {mapa.zoomToMaxExtent();}
-//    {% endif %}     
 }
 
 
-// deprecated var geocoder = new GClientGeocoder(); 
-var geocoder = new google.maps.Geocoder();
+function UpdateKmlLayer(layer, query) {
+  layer.loaded = false;
+  layer.setVisibility(true);
+  layer.refresh({ force: true, params:{'query': query} });
+}
 
 function showAddress(address) {
     var uomoStyle = { graphicWidth: 25,graphicHeight: 28,graphicYOffset:-28,graphicXOffset:-7, externalGraphic:img_base_path + "uomo_stick_25X28.png"};

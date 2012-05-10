@@ -108,10 +108,11 @@ class PontoSearchForm(forms.Form):
             return False
 
         if self.is_valid():
-            q_categoria = query_field('categoria')
-            q_titulo = query_field('texto', 'icontains', 'titulo')
+            #q_titulo = query_field('texto', 'icontains', 'titulo')
             #q_descricao = ((self.cleaned_data['texto']!=None) and  Q(descricao__icontains =  self.cleaned_data['texto']) )
-            q_descricao = query_field('texto', 'icontains', 'descricao')
+            q_categoria = ((self.cleaned_data['categoria']!=None  ) and  Q(categoria__icontains =  self.cleaned_data['categoria']) )
+            q_titulo = ((self.cleaned_data['texto']!=None) and  Q(titulo__icontains =  self.cleaned_data['texto']) )
+            q_descricao = ((self.cleaned_data['texto']!=None) and  Q(descricao__icontains =  self.cleaned_data['texto']) )
 
             print object_list.filter(q_categoria and (q_titulo or q_descricao))
             print len( object_list.filter(q_categoria and (q_titulo or q_descricao)))

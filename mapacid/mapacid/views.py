@@ -13,12 +13,11 @@ def home(request):
 
 
     formsrch = PontoSearchForm(request.GET or None)
-    ponto_list  = formsrch.queryset()
 
     return render_to_response('home.html', 
         {
         'formsrch':formsrch, 
-        'ponto_list':ponto_list,
+        
         }, 
        context_instance=RequestContext(request)
        )

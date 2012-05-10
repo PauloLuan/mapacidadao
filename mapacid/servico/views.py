@@ -33,15 +33,22 @@ def ponto_crud(request, ponto_id=None):
        )
 
 
-
-def kml(request, categoria=None, object_id=None):
+def kml(request, queryset=None):
     ''' carrega pontos '''
-    
-    if categoria:
-        pontos = Ponto.objects.all()
+
+    print "has key query===== %s " % (request.GET.has_key('query'));
+    if request.GET.has_key('query'):
+        print request.GET['query']
+
+    print "has key ===== %s " % (request.GET.has_key('categoria'));
+    if request.GET.has_key('categoria'):
+        categoria = request.GET['categoria']
+
+
+        markers = Ponto.objects.filter(categoria=categoria)
+        print "-------------------"
     else:
-        pontos = Ponto.objects.all()
-    markers = pontos
+        markers = Ponto.objects.all()
 
     markers = [{'id':mrk.id,
                  'name': mrk.titulo, 
@@ -60,7 +67,6 @@ def kml_detail(request, object_id=None):
     ponto = get_object_or_404(Ponto, pk=object_id)
     markers = ponto
 
-    
 
     markers = [{'id':mrk.id,
                  'name': mrk.titulo, 
