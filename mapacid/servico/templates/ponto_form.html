@@ -1,5 +1,5 @@
-{% extends "layout/base_hero.html" %}
-{% load boots_form_tags %}
+{% extends "base.html" %}
+{% load bootstrap_toolkit %}
 {% block boot_style %}
     <style type="text/css">
       body {
@@ -17,8 +17,8 @@
 <li class="active"><a href="/">menu3</a></li>
 </ul>
 <p class="navbar-text pull-right">
-{% if user.is_authenticated %} 
-Usuário : <a href="#">{{ user.username }}</a> | <a href="/logout/">logout</a> 
+{% if user.is_authenticated %}
+Usuário : <a href="#">{{ user.username }}</a> | <a href="/logout/">logout</a>
 {% else %}
 <a href="/login/">Login</a>
 {% endif %}
@@ -32,10 +32,10 @@ Usuário : <a href="#">{{ user.username }}</a> | <a href="/logout/">logout</a>
    {% csrf_token %}
 
    <div class="span4">
-      
+
       <fieldset class="control-group">
-         {% boots_form form.categoria %}
-      {% boots_form form.arquivo %}
+         {{ form.categoria|as_bootstrap }}
+      {{ form.arquivo|as_bootstrap }}
          <div class="form-actions">
       <button type="submit" class="btn btn-primary">Salvar Dados</button>
       <button class="btn">Cancela</button>
@@ -45,20 +45,20 @@ Usuário : <a href="#">{{ user.username }}</a> | <a href="/logout/">logout</a>
    <div class="span4">
       <fieldset class="control-group">
 
-      {% boots_form form.titulo %}
+      {{ form.titulo|as_bootstrap }}
 
-      {% boots_form form.descricao %}
-      {% boots_form form.status %}
+      {{ form.descricao|as_bootstrap }}
+      {{ form.status|as_bootstrap }}
       </fieldset>
    </div>
    <div class="span4">
       <fieldset class="control-group">
-      {% boots_form form.logradouro %}
-      {% boots_form form.numero %}
-      {% boots_form form.complemento %}
-      {% boots_form form.bairro %}
-      {% boots_form form.cep %}
-      {% boots_form form.municipio %}
+      {{ form.logradouro|as_bootstrap }}
+      {{ form.numero|as_bootstrap }}
+      {{ form.complemento|as_bootstrap }}
+      {{ form.bairro|as_bootstrap }}
+      {{ form.cep|as_bootstrap }}
+      {{ form.municipio|as_bootstrap }}
       <div class="form-actions">
          <button type="submit" class="btn btn-primary">Salvar Dados</button>
          <button class="btn">Cancela</button>

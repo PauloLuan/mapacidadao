@@ -137,7 +137,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    "templates", 
+    "templates",
 )
 
 
@@ -155,10 +155,9 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     #apps instaladas
-    'boots_form', 
-    'layout',
+    'bootstrap_toolkit',
     'servico',
-    
+
 )
 
 LOGIN_URL = '/login/'
